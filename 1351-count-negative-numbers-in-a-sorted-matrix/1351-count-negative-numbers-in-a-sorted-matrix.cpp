@@ -6,17 +6,16 @@ public:
         int cnt = 0;           
 
          //iterative approch
-        // for (int i = 0; i < m; ++i) {
-        //     for (int j = 0; j < n; ++j) {
-        //         if (grid[i][j] < 0) {
-        //             cnt++;
-        //         }
-        //     }
-        // }
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (grid[i][j] < 0) {
+                    cnt++;
+                }
+            }
+        }
 
-        // return cnt;
+        return cnt;
 
         //using binary search
-        
     }
 };
