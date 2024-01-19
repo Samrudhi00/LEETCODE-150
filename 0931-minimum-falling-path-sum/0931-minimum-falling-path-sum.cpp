@@ -1,4 +1,3 @@
-#pragma GCC optimize("O3", "unroll-loops")
 class Solution {
 public:
     int minFallingPathSum(vector<vector<int>>& matrix) {
