@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
+
+        // to find smallest on left side NSL
+        vector<int> left(n, -1);
+        stack<int> s;
+
+        for (int i = 0; i < n; i++) {
+            while (!s.empty() && heights[s.top()] >= heights[i]) {
+                s.pop();
+            }
+            if (!s.empty()) {
+                left[i] = s.top();
+            }
+            s.push(i);
+        }
+
+        // to find smallest on right side NSR
+        vector<int> right(n, n);
+        while (!s.empty()) {
+            s.pop();
+        }
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (!s.empty() && heights[s.top()] >= heights[i]) {
+                s.pop();
+            }
+            if (!s.empty()) {
+                right[i] = s.top();
+            }
+            s.push(i);
+        }
+
+        int answer = 0;
+
+        for (int i = 0; i < n; i++) {
+            int width = right[i] - left[i] - 1;
+            int area = heights[i] * width;
+            answer = max(answer, area);
+        }
+
+        return answer;
+    }
+};
