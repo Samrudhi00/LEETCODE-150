@@ -6,7 +6,7 @@ public:
         int col = matrix[0].size();
         int top = 0, left = 0, right = col - 1, bottom = row - 1;
 
-        while (top <= bottom && left <= right) {
+        while (top <= bottom && left <= right ) {
             // from top to right
             for (int i = left; i <= right; i++) {
                 ans.push_back(matrix[top][i]);
