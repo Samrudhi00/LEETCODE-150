@@ -1,0 +1,52 @@
+/// NOT WORKING 
+ //  int k = 2;
+        // int beauty = 0;
+        // int n = s.size();
+        // for (int i = 0; i <= n - k; i++) {
+        //     unordered_map<char, int> mp;
+        //     // to find the frequency
+        //     // for (char c : s1) {
+        //     mp[s[i]]++;
+        //     // }
+        //     for (int j = i + k; j < n; j++) {
+        //         mp[s[j]]++;
+        //         string s1 = s.substr(i, j - i + 1);
+        //         // to find max and min frequency
+        //         int maximum = INT_MIN;
+        //         int minimum = INT_MAX;
+        //         for (auto a : mp) {
+        //             maximum = max(maximum, a.second);
+        //             minimum = min(minimum, a.second);
+        //         }
+        //         beauty += (maximum - minimum);
+        //         // to remove extra char
+        //         mp[s[i]]--;
+        //     }
+        // }
+        // return beauty;
+
+////
+class Solution {
+public:
+    int beautySum(string s) {
+        int ans=0;
+        for(int i=0;i<s.size()-1;i++){
+            unordered_map<char,int>mpp;
+            mpp[s[i]]++;
+            for(int j=i+1;j<s.size();j++){
+                mpp[s[j]]++;
+                int maxi=INT_MIN;
+                int mini=INT_MAX;
+                for(auto x:mpp){
+                    maxi=max(x.second,maxi);
+                    mini=min(x.second,mini);
+                }
+                ans=ans+maxi-mini;
+            }
+        }
+        return ans;
+    }
+};
+
+
+///More improved
