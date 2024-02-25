@@ -1,0 +1,34 @@
+////////////// IMPROVEMENT
+
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        vector<int> ans;
+        int n = asteroids.size();
+        stack<int> st;
+        for (int i = 0; i < n; i++) {
+            st.push(asteroids[i]);
+        }
+        while (!st.empty()) {
+            int a = st.top();
+            st.pop();
+            int b = st.top();
+            st.pop();
+            if ((a * b) < 0) {
+                if (abs(a) == abs(b)) {
+                    break;
+                } else {
+                    int maximum = min(abs(a), abs(b));
+                    st.push(maximum);
+                    break;
+                }
+            } else {
+                // push into array
+                st.push(b);
+                st.push(a);
+            }
+        }
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+};
