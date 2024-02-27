@@ -1,11 +1,8 @@
-#include <vector>
-#include <stack>
-
 class Solution {
 public:
-    std::vector<int> asteroidCollision(std::vector<int>& asteroids) {
+    vector<int> asteroidCollision(std::vector<int>& asteroids) {
         int n = asteroids.size();
-        std::stack<int> stack;
+        stack<int> stack;
         stack.push(asteroids[n - 1]);
 
         int i = n - 2;
@@ -27,9 +24,9 @@ public:
                     stack.push(b);
                     stack.push(a);
                 } else {
-                    if (std::abs(a) > std::abs(b))
+                    if (abs(a) > std::abs(b))
                         stack.push(a);
-                    else if (std::abs(a) < std::abs(b))
+                    else if (abs(a) < std::abs(b))
                         stack.push(b);
                 }
             }
@@ -54,7 +51,7 @@ public:
             i--;
         }
 
-        std::vector<int> ans;
+        vector<int> ans;
         while (!stack.empty()) {
             ans.push_back(stack.top());
             stack.pop();
