@@ -4,7 +4,6 @@ public:
         int n = asteroids.size();
         stack<int> stack;
         stack.push(asteroids[n - 1]);
-
         int i = n - 2;
         while (i >= 0) {
             int a = asteroids[i];
@@ -15,22 +14,26 @@ public:
             }
             int b = stack.top();
             stack.pop();
-
-            if (isSameDirection(a, b)) {
+            if (isSameDirection(a, b) ||(a<0 && b>0)) {
                 stack.push(b);
                 stack.push(a);
-            } else {
-                if (a < 0 && b > 0) {
-                    stack.push(b);
-                    stack.push(a);
-                } else {
-                    if (abs(a) > std::abs(b))
-                        stack.push(a);
-                    else if (abs(a) < std::abs(b))
-                        stack.push(b);
-                }
+            } else if(abs(a) > abs(b)){
+                 stack.push(a);
+            }else if (abs(a) < abs(b)){
+                 stack.push(b);
             }
-
+            
+            // else {
+            //     if (a < 0 && b > 0) {
+            //         stack.push(b);
+            //         stack.push(a);
+            //     } else {
+            //         if (abs(a) > abs(b))
+            //             stack.push(a);
+            //         else if (abs(a) < abs(b))
+            //             stack.push(b);
+            //     }
+            // }
             if (stack.size() > 1) {
                 int a = stack.top();
                 stack.pop();
@@ -50,16 +53,13 @@ public:
             }
             i--;
         }
-
         vector<int> ans;
         while (!stack.empty()) {
             ans.push_back(stack.top());
             stack.pop();
         }
-
         return ans;
     }
-
     bool isSameDirection(int a, int b) {
         return (a > 0 && b > 0) || (a < 0 && b < 0);
     }
