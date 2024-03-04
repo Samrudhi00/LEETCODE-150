@@ -1,0 +1,20 @@
+class Solution {
+public:
+    void RePermut(int index,vector<int>& nums,vector<vector<int>>& ans){
+        //base case
+        if(index==nums.size()){
+            ans.push_back(nums);
+            return;
+        }
+        for(int i=index;i<nums.size();i++){
+            swap(nums[index],nums[i]);
+            RePermut(index+1,nums,ans);
+            swap(nums[index],nums[i]);
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ans;
+        RePermut(0,nums,ans);
+        return ans;
+    }
+};
