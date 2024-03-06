@@ -3,6 +3,7 @@ class Solution {
 public:
     long long power(long long x, long long y) {
         if (y == 0) return 1;
+        if(y==1)return x;
         long long ans = power(x, y / 2) % MOD;
         ans = (ans * ans) % MOD;
         if (y % 2) {
@@ -10,7 +11,6 @@ public:
         }
         return ans;
     }
-
     int countGoodNumbers(long long n) {
         long long odd = n / 2;
         long long even = n / 2 + n % 2;  
