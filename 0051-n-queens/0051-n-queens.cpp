@@ -1,86 +1,127 @@
 class Solution {
 public:
-    void markQueenANDDots(int row, int colm, vector<string>& board, int n) {
-        // top
-        for (int i = row; i >= 0; i--) {
-            board[row][colm] = '.';
-        }
-        // down
-        for (int i = row; i <= n; i++) {
-            board[row][colm] = '.';
-        }
-        // left
-        for (int j=colm; j >= n; j--) {
-            board[row][colm] = '.';
-        }
-        // right
-        for (int j=colm; j <= n; j++) {
-            board[row][colm] = '.';
-        }
-        // LT
-        while (row >= 0 && colm >= 0) {
-            board[row][colm] = '.';
-            --row;
-            --colm;
+    bool CanPlaceQueen(int row, int colm, vector<string>& board, int n) {
+        // Check vertically
+        // for (int i = 0; i < n; ++i) {
+        //     if (i != row && board[i][colm] == 'Q') {
+        //         return false;
+        //     }
+        // }
+
+        // Check diagonally
+        int r, c;
+
+        // Top
+        r = row - 1;
+        c = colm;
+        while (r >= 0) {
+            if (board[r][c] == 'Q') {
+                return false;
+            }
+            --r;
         }
 
-        // RD
-        while (row < n && colm < n) {
-            board[row][colm] = '.';
-            ++row;
-            ++colm;
+        // Down
+        r = row + 1;
+        while (r < n) {
+            if (board[r][colm] == 'Q') {
+                return false;
+            }
+            ++r;
         }
 
-        // LD
-        while (row < n && colm >= 0) {
-            board[row][colm] = '.';
-            ++row;
-            --colm;
+        // Left
+        r = row;
+        c = colm - 1;
+        while (c >= 0) {
+            if (board[r][c] == 'Q') {
+                return false;
+            }
+            --c;
         }
 
-        // RT
-        while (row >= 0 && colm < n) {
-            board[row][colm] = '.';
-            --row;
-            ++colm;
+        // Right
+        c = colm + 1;
+        while (c < n) {
+            if (board[row][c] == 'Q') {
+                return false;
+            }
+            ++c;
         }
+
+        // Diagonals (LT, RD, LD, RT)
+        r = row - 1;
+        c = colm - 1;
+        while (r >= 0 && c >= 0) {
+            if (board[r][c] == 'Q') {
+                return false;
+            }
+            --r;
+            --c;
+        }
+
+        r = row + 1;
+        c = colm + 1;
+        while (r < n && c < n) {
+            if (board[r][c] == 'Q') {
+                return false;
+            }
+            ++r;
+            ++c;
+        }
+
+        r = row + 1;
+        c = colm - 1;
+        while (r < n && c >= 0) {
+            if (board[r][c] == 'Q') {
+                return false;
+            }
+            ++r;
+            --c;
+        }
+
+        r = row - 1;
+        c = colm + 1;
+        while (r >= 0 && c < n) {
+            if (board[r][c] == 'Q') {
+                return false;
+            }
+            --r;
+            ++c;
+        }
+
+        return true;
     }
 
-    bool nextPlace(int row,int colm,vector<string>& board,vector<vector<string>>& ans, int n, int& Q_cnt) {
-        for (int j = 0; j < n; ++j) {
-            if (board[row][j] == '.') {
-                board[row][j] = 'Q';
-                Q_cnt++;
-                findPossibility(row, j, board, ans, n, Q_cnt);
-                return true;
+    void addSolution(vector<vector<string>>& ans, const vector<string>& board) {
+        ans.push_back(board);
+    }
+
+    void findPossibility(int colm, vector<vector<string>>& ans,
+                         vector<string>& board, int n) {
+        // Base case
+        if (colm == n) {
+            addSolution(ans, board);
+            return;
+        }
+
+        for (int row = 0; row < n; ++row) {
+            // Can we place the queen
+            if (CanPlaceQueen(row, colm, board, n)) {
+                // If yes
+                board[row][colm] = 'Q';
+                // Recursion
+                findPossibility(colm + 1, ans, board, n);
+                // Backtracking
+                board[row][colm] = '.';
             }
         }
-        return false;
-    }
-
-    void findPossibility(int row, int colm, vector<string>& board,vector<vector<string>>& ans, int n,int Q_cnt) {
-        // base case
-        if (Q_cnt == n) {
-            ans.push_back(board);
-            return;
-        }
-         markQueenANDDots(row, colm, board, n);
-
-        if ((row + 1) < n) {
-            return;
-        }
-
-        nextPlace(row + 1,colm, board, ans,n, Q_cnt);
     }
 
     vector<vector<string>> solveNQueens(int n) {
+        vector<string> board(n, string(n, '.'));
         vector<vector<string>> ans;
-        vector<string> chessboard(n);
-        int Q_cnt = 0;
-        for (int row = 0; row <= n; row++) {
-            chessboard[row] = 'Q';
-            findPossibility(0, 0, chessboard, ans, n, Q_cnt);
-        }
+        findPossibility(0, ans, board, n);
         return ans;
     }
 };
