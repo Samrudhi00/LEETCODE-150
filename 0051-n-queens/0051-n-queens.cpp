@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool CanPlaceQueen(int row, int colm, vector<string>& board, int n) {
+    bool canPlaceQueen(int row, int colm, vector<string>& board, int n) {
         // Check vertically
         // for (int i = 0; i < n; ++i) {
         //     if (i != row && board[i][colm] == 'Q') {
@@ -107,7 +107,7 @@ public:
 
         for (int row = 0; row < n; ++row) {
             // Can we place the queen
-            if (CanPlaceQueen(row, colm, board, n)) {
+            if (canPlaceQueen(row, colm, board, n)) {
                 // If yes
                 board[row][colm] = 'Q';
                 // Recursion
