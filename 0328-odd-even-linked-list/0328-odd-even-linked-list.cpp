@@ -11,33 +11,46 @@
 class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
+
         if(head == nullptr || head->next == nullptr)return head;
+        else if(head != nullptr){
+            ListNode* odd= head;
+        ListNode* even = head->next;
+        ListNode* evenHead=even;
+
+        while(even && even->next){
+            odd->next=odd->next->next;
+            even->next=even->next->next;
+            odd=odd->next;
+            even=even->next;
+        }
+        odd->next = evenHead;
+
+        }
+        
+        return head;
+
         //we will take two pointers 
         //start and end
-        int cnt = 1;
-        ListNode* start = head;
-        ListNode* end = head;
-        while (end->next != nullptr) {
-            end = end->next;
-            cnt++;
-        }
-        //new cnt
-         cnt = cnt / 2;
-        // if(cnt % 2 == 0){
-        //     cnt = cnt/2;
-        // }else{
-        //     cnt = (cnt/2) + 1;
+        // int cnt = 1;//size
+        // ListNode* start = head;
+        // ListNode* end = head;
+        // while (end->next != nullptr) {
+        //     end = end->next;
+        //     cnt++;
         // }
+        // //new cnt
+        //  cnt = cnt / 2;
 
-        while(cnt>0){
-            end->next = start->next;
-            start->next = start->next->next;
-            end->next->next = nullptr;
-            start = start->next;
-            end = end->next;
-            cnt--;
-        }
-        return head;
+        // while(cnt>0){
+        //     end->next = start->next;
+        //     start->next = start->next->next;
+        //     end->next->next = nullptr;
+        //     start = start->next;
+        //     end = end->next;
+        //     cnt--;
+        // }
+        // return head;
 
         //last end to point karna he even index pe
         //even index ka prev node me even index ka next copy karna he
