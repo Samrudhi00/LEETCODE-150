@@ -24,6 +24,7 @@ public:
     bool exist(vector<vector<char>>& board, string word) {
         int m = board.size();
         int n = board[0].size();
+        if(m * n < word.size())return false;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (word[0] == board[i][j]) {
