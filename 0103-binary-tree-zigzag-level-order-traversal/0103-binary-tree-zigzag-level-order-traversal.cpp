@@ -38,7 +38,12 @@ public:
                 q.pop(); // Pop the processed node
             }
             if (!flag) {
-                reverse(temp.begin(), temp.end());
+                // Manually reverse temp vector
+                for (int i = 0, j = temp.size() - 1; i < j; i++, j--) {
+                    int tempVal = temp[i];
+                    temp[i] = temp[j];
+                    temp[j] = tempVal;
+                }
             }
             // Push into final list
             ans.push_back(temp);
