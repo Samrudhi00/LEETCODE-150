@@ -22,7 +22,7 @@ public:
         int right = height(root->right);
         
         // Check if subtree is balanced and get the height
-        if(left == -1 || right == -1 || abs(left - right) > 1) return -1;
+        if( abs(left - right) > 1) return -1;
         return 1 + max(left, right);
     }
 };
