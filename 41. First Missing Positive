@@ -1,7 +1,4 @@
-#include <vector>
-#include <unordered_set>
-using namespace std;
-
+//////////////////   APPROACH 1   ////////////////////
 class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
@@ -15,5 +12,29 @@ public:
         }
         
         return smallestPositive;
+    }
+};
+
+//////////////////   APPROACH 2   ////////////////////
+
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        int n = nums.size();
+        unordered_set<int> seen;
+
+        // Mark presence of positive integers in the array
+        for (int num : nums) {
+            if (num > 0)
+                seen.insert(num);
+        }
+
+        // Find the smallest missing positive integer
+        for (int i = 1; i <= n; ++i) {
+            if (seen.find(i) == seen.end()) {
+                return i;
+            }
+        }
+        return n + 1;
     }
 };
