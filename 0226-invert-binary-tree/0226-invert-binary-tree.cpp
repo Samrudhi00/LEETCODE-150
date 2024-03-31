@@ -21,8 +21,9 @@ public:
             node->left = node->right;
             node->right = temp;
         }
-        invertTree(node->left);
         invertTree(node->right);
+        invertTree(node->left);
+        
         return root;
     }
 };
