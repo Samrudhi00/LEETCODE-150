@@ -6,6 +6,10 @@ class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
 
+       
+
+
+        /////////////////////////////////////////////////////////////
         int n = nums.size();
         unordered_set<int> seen;
         // Mark presence of positive integers in the array
@@ -22,6 +26,8 @@ public:
 
         // If all positive integers from 1 to n are present, return n+1
         return n + 1;
+
+         /////////////////////////////////////////////////////////////
 
         // unordered_set<int> ispresent(nums.begin(), nums.end());
         
