@@ -1,38 +1,36 @@
 class Solution {
 public:
+    void verticalTraversalRecursive(TreeNode* root, int index, int level, map<int, map<int, vector<int>>>& mp) {
+        if (root == nullptr)
+            return;
+        
+        mp[index][level].push_back(root->val);
+        
+        // left
+        verticalTraversalRecursive(root->left, index - 1, level + 1, mp);
+        // right
+        verticalTraversalRecursive(root->right, index + 1, level + 1, mp);
+    }
+    
     vector<vector<int>> verticalTraversal(TreeNode* root) {
         vector<vector<int>> ans;
         if (root == nullptr)
             return ans;
-        map<int, vector<int>> mp;
-        queue<pair<TreeNode*, int>> q;
-        q.push({root, 0});
-        while (!q.empty()) {
-            int size = q.size();
-            map<int, vector<int>> levelNodes;  
-            while (size--) {
-                auto temp = q.front();
-                q.pop();
-                //we will crete dummy list
-                TreeNode* node = temp.first;
-                int hd = temp.second;
-                levelNodes[hd].push_back(node->val); 
-                if(node->left) {
-                    q.push({node->left, hd - 1});
-                }
-                if(node->right) {
-                    q.push({node->right, hd + 1});
-                }
-            }  
-            for (auto& x : levelNodes) {
-                sort(x.second.begin(), x.second.end()); 
-                mp[x.first].insert(mp[x.first].end(), x.second.begin(), x.second.end());
-            }
-        }
+        map<int, map<int, vector<int>>> mp;
+        
+        verticalTraversalRecursive(root, 0, 0, mp);
+        
         // Populate the result vector
-        for (auto& x : mp) {
-            ans.push_back(x.second);
-        }
+        for (auto& col : mp) {
+            vector<int> column;
+            for (auto& row : col.second) {
+                // sort for indexes
+                sort(row.second.begin(), row.second.end()); 
+                //sort for level
+                column.insert(column.end(), row.second.begin(), row.second.end());
+            }
+            ans.push_back(column);
+        } 
         return ans;
     }
 };
