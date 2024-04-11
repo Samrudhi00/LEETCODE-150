@@ -1,0 +1,64 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        
+        if(root == NULL) return "null,";
+
+        string s = "";
+        s+=to_string(root->val);
+        s+=",";
+        s+=serialize(root->left);
+        s+=serialize(root->right);
+        return s;
+    }
+    TreeNode* deserialize(string data) {
+        int start = 0 ;
+        // passing start as reference instead of value.
+        return   _deserialize(start,data) ;
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* _deserialize(int &start, string data) {
+            if(start >= data.size()) return NULL ;
+
+            string value = "";
+            TreeNode * root = new TreeNode();
+
+            int i = start;
+            for(; i<data.size(); i++){
+                if(data[i]==','){
+                    break;
+                }else{
+                    value+=data[i];
+                }
+            }
+            // update the start pointer in order for next recursive call to traverse correctly.
+
+            start = i+1;
+            if(value == "null"){
+                return NULL;
+            }
+            root->val = stoi(value);
+            
+            root->left = _deserialize(start, data);
+            root->right = _deserialize(start, data);
+
+            return root;
+
+    }
+};
+
+// Your Codec object will be instantiated and called as such:
+// Codec ser, deser;
+// TreeNode* ans = deser.deserialize(ser.serialize(root));
