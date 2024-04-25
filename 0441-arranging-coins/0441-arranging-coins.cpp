@@ -1,13 +1,12 @@
 class Solution {
 public:
     int arrangeCoins(int n) {
-        int ans=0;
-        for(int i=1;i<=n;i++){
-           n = n - i;
-           if(n>=0){
-            ans=i;
-           }
+        int i=1;
+        while (n>=i) {
+            n-=i;
+            i++;
         }
-        return ans;
+
+        return --i;
     }
 };
