@@ -1,6 +1,18 @@
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
-        return (nums.size())*(nums.size()+1)/2-accumulate(nums.begin(), nums.end(), 0);
+        unordered_map<int, bool> mp;
+        for (int num : nums) {
+            mp[num] = true;
+        }
+        
+        int n = nums.size();
+        for (int i = 0; i <= n; ++i) {
+            if (mp.find(i) == mp.end()) {
+                return i;
+            }
+        }
+        
+        return -1; 
     }
 };
