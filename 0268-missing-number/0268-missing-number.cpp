@@ -1,18 +1,20 @@
+#include <vector>
+#include <unordered_set>
+
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
-        unordered_map<int, bool> mp;
-        for (int num : nums) {
-            mp[num] = true;
+        int n=nums.size();
+        int xor_all = 0;
+        int xor_num = 0;
+        for(int i=0;i<=n;i++){
+           xor_all ^= i;
         }
-        
-        int n = nums.size();
-        for (int i = 0; i <= n; ++i) {
-            if (mp.find(i) == mp.end()) {
-                return i;
-            }
+        for(int num:nums){
+            xor_num ^= num;
+
         }
-        
-        return -1; 
+        return xor_all ^ xor_num;
+
     }
 };
