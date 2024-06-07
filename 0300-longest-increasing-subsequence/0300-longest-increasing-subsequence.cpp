@@ -1,23 +1,21 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        vector<int> tails(nums.size(), 0);
-        int size = 0;
+        vector<int> subsequenceEnds(nums.size(), 0);
+        int currentLength = 0;
 
-        for (int x : nums) {
-            int i = 0, j = size;
-            while (i != j) {
-                int m = (i + j) / 2;
-                if (tails[m] < x)
-                    i = m + 1;
+        for (int num : nums) {
+            int left = 0, right = currentLength;
+            while (left != right) {
+                int mid = (left + right) / 2;
+                if (subsequenceEnds[mid] < num)
+                    left = mid + 1;
                 else
-                    j = m;
+                    right = mid;
             }
-            tails[i] = x;
-            if (i == size) ++size;
+            subsequenceEnds[left] = num;
+            if (left == currentLength) ++currentLength;
         }
-        return size;
+        return currentLength;
     }
 };
-
-        
