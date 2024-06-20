@@ -1,19 +1,24 @@
 class Solution {
 public:
     bool isPalindrome(int x) {
-        if (x < 0) {
-            return false;
+        if(x<0) return false;
+        vector<int> num;
+        while(x!=0){
+            int digit= x%10;
+            num.push_back(digit);
+            x=x/10;
         }
-
-        long long reversed = 0;
-        long long temp = x;
-
-        while (temp != 0) {
-            int digit = temp % 10;
-            reversed = reversed * 10 + digit;
-            temp /= 10;
+        int n= num.size();
+        int i=0;
+        int j=n-1;
+        while(i<j){
+            if(num[i]!=num[j]){
+                return false;
+            }
+            i++;
+            j--;
         }
-
-        return (reversed == x);
+        return true;
+        
     }
 };
