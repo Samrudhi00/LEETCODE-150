@@ -1,6 +1,7 @@
 class Solution {
 public:
-    vector<vector<int>> buildMatrix(int k, vector<vector<int>>& rowConditions, vector<vector<int>>& colConditions) {
+    vector<vector<int>> buildMatrix(int k, vector<vector<int>>& rowConditions,
+                                    vector<vector<int>>& colConditions) {
         unordered_map<int, vector<int>> rowgraph;
         unordered_map<int, vector<int>> colgraph;
 
@@ -18,7 +19,8 @@ public:
             bool cycle = false;
 
             function<void(int)> topoHelper = [&](int x) {
-                if (cycle) return;
+                if (cycle)
+                    return;
 
                 visited.insert(x);
                 check_cycle.insert(x);
@@ -36,7 +38,8 @@ public:
             };
 
             for (int i = 1; i <= k; ++i) {
-                if (cycle) return vector<int>();
+                if (cycle)
+                    return vector<int>();
                 if (visited.find(i) == visited.end()) {
                     topoHelper(i);
                 }
