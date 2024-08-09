@@ -7,7 +7,6 @@ public:
         for (auto& time : times) {
             adj[time[0]].emplace_back(time[1], time[2]);
         }
-
        
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
        
